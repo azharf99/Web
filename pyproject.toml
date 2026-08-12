@@ -1,0 +1,11 @@
+[project]
+name = "algonova-web"
+version = "0.1.0"
+description = "Flask quiz app deployable to Vercel"
+requires-python = ">=3.12"
+dependencies = [
+    "Flask==3.0.0"
+]
+
+[tool.vercel]
+entrypoint = "main:app"

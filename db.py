@@ -1,5 +1,8 @@
+import os
 import sqlite3
-db_name = 'quiz.db'
+
+_db_dir = os.path.dirname(os.path.abspath(__file__))
+db_name = os.path.join(_db_dir, 'quiz.db')
 conn = None
 curor = None
 
@@ -167,25 +170,22 @@ def show(table):
 def show_questions_by_quiz_id(id):
     open()
 
-
-    cursor.execute('''SELECT * from quiz_content 
-                    WHERE quiz_id = (?)''', str(id))
+    cursor.execute('SELECT * FROM quiz_content WHERE quiz_id = ?', (id,))
     data = cursor.fetchall()
     questions = list()
-    for (id, quiz_id, question_id) in data:
-        cursor.execute('''SELECT * FROM question 
-                       WHERE id = ''' + str(question_id))
-        question =cursor.fetchone()
-        questions.append(question)
-    conn.commit()
-
+    for (_id, quiz_id, question_id) in data:
+        cursor.execute('SELECT * FROM question WHERE id = ?', (question_id,))
+        question = cursor.fetchone()
+        if question:
+            questions.append(question)
+    close()
     return questions
 
 def get_questions_by_id(id):
     open()
-    cursor.execute('''SELECT * FROM question 
-                    WHERE id = (?)''', str(id))
+    cursor.execute('SELECT * FROM question WHERE id = ?', (id,))
     question = cursor.fetchone()
+    close()
     return question
 
 def show_tables():

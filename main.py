@@ -1,9 +1,10 @@
+import os
 from flask import Flask, session, render_template, request
 from db import show, show_questions_by_quiz_id, get_correct_answer
 from random import shuffle
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ThisIsSecretSecretSecretLife'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'ThisIsSecretSecretSecretLife')
 def start_quiz(quiz_id):
     '''creates the desired values ​​in the session dictionary'''
     session['quiz'] = quiz_id
@@ -65,4 +66,5 @@ def result():
         return render_template('result.html', nilai=result, akurasi=(result/total_question)*100, jumlah_soal=total_question)
     return 'Halaman Hasil'
 
-app.run()
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))

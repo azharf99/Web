@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+
+        {% if data %}
+        
+        <form method="get" action="/test">
+            
+            <select name="quiz_id" class="select">
+                <option>---Pilih Jenis Kuis---</option>
+            {% for quiz in data %}
+            
+            <!-- <h1>
+                <a href="/test/{{quiz[0]}}">{{quiz[1]}}</a>
+            </h1> -->
+            <option value="{{quiz[0]}}">{{quiz[0]}} {{quiz[1]}}</option>
+            {% endfor %}
+            </select>
+            <input type="submit" value="Ambil Data Kuis">
+            </form>
+            {% else %}
+            <h1>Data masih kosong! Silahkan setting database dulu!</h1>
+            {% endif %}
+    </div>
+</body>
+</html>

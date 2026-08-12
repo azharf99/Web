@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+
+    {% if data %}
+    <form method="post" action="/result">
+        {% for question in data %}
+        <fieldset>
+          <legend>{{question[0]}}. {{question[1]}}</legend>
+          
+          <div class="form_radio_btn">
+            <input type="radio" id="{{question[2]}}" name="{{question[0]}}" value="{{question[2]}}" checked />
+            <label for="{{question[2]}}">{{question[2]}}</label>
+          </div>
+          
+          <div class="form_radio_btn">
+            <input type="radio" id="{{question[3]}}" name="{{question[0]}}" value="{{question[3]}}" />
+            <label for="{{question[3]}}">{{question[3]}}</label>
+          </div>
+          
+          <div class="form_radio_btn">
+            <input type="radio" id="{{question[4]}}" name="{{question[0]}}" value="{{question[4]}}" />
+            <label for="{{question[4]}}">{{question[4]}}</label>
+          </div>
+            <div class="form_radio_btn">
+              <input type="radio" id="{{question[5]}}" name="{{question[0]}}" value="{{question[5]}}" />
+              <label for="{{question[5]}}">{{question[5]}}</label>
+            </div>
+          </fieldset>
+          {% endfor %}
+          <input type="submit" value="Kirim Jawaban">
+        </form>
+        {% else %}
+        <h1>Data masih kosong! Silahkan setting database dulu!</h1>
+        {% endif %}
+  </div>
+</body>
+</html>
